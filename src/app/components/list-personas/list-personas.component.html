@@ -1,0 +1,84 @@
+<div class="header-toolbar-aligned">
+  <button mat-raised-button (click)="addEditPersona()">Agregar Persona</button>
+  <mat-form-field appearance="standard">
+    <mat-label>Filtro</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Filtrar">
+  </mat-form-field>
+</div>
+
+<div class="shadow-panel">
+  <table mat-table [dataSource]="dataSource" class="full-width-table">
+
+        <!-- DNI -->
+        <ng-container matColumnDef="dni">
+          <th mat-header-cell *matHeaderCellDef class="doc-col">DNI</th>
+          <td mat-cell *matCellDef="let persona" class="doc-col">
+            {{ persona.dni }}
+          </td>
+    
+        </ng-container>
+
+    <!-- Nombre -->
+    <ng-container matColumnDef="nombre">
+      <th mat-header-cell *matHeaderCellDef class="nombre-col">Nombre</th>
+      <td mat-cell *matCellDef="let persona" class="nombre-col">
+        {{ persona.nombre }}
+      </td>
+    </ng-container>
+
+    <!-- Apellidos -->
+    <ng-container matColumnDef="apellidos">
+      <th mat-header-cell *matHeaderCellDef class="apellidos-col">Apellidos</th>
+      <td mat-cell *matCellDef="let persona" class="apellidos-col">
+        {{ persona.apellidos }}
+      </td>
+    </ng-container>
+
+    <!-- Email -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef class="email-col">Email</th>
+      <td mat-cell *matCellDef="let persona" class="email-col">
+        {{ persona.email }}
+      </td>
+    </ng-container>
+
+    <!-- Tipo Documento -->
+    <ng-container matColumnDef="telefono">
+      <th mat-header-cell *matHeaderCellDef class="telefono-col">Teléfono</th>
+      <td mat-cell *matCellDef="let persona" class="telefono-col">
+        {{ persona.telefono }}
+      </td>
+    </ng-container>
+
+    <!-- Fecha Nacimiento -->
+    <ng-container matColumnDef="fechaNacimiento">
+      <th mat-header-cell *matHeaderCellDef class="fecha-nacimiento-col">Fecha Nacimiento</th>
+      <td mat-cell *matCellDef="let persona" class="fecha-nacimiento-col">
+        {{ persona.fechaNacimiento | date:'d' }} de
+        {{ persona.fechaNacimiento | date:'MMMM' }} de
+        {{ persona.fechaNacimiento | date:'y' }}
+      </td>
+
+    </ng-container>
+
+    <!-- Acciones -->
+    <ng-container matColumnDef="acciones">
+      <th mat-header-cell *matHeaderCellDef class="acciones-col">Acciones</th>
+      <td mat-cell *matCellDef="let persona" class="acciones-col">
+        <button mat-icon-button color="primary" (click)="addEditPersona(persona.dni)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button *ngIf="persona.dni" mat-icon-button color="warn" (click)="deletePersona(persona.dni)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="dataSource.data.length || 0" [pageSize]="5" [pageSizeOptions]="[5, 10, 50]"
+    showFirstLastButtons>
+  </mat-paginator>
+</div>

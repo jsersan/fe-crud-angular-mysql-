@@ -1,0 +1,87 @@
+body, .main-content, .outer-wrapper, mat-toolbar {
+  background: #fff !important;
+  box-shadow: none !important;
+}
+
+/* Cabecera arriba */
+.header-toolbar-aligned {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 32px;
+  margin-top: 0;
+  margin-bottom: 0;
+  width: calc(100% - 64px);
+  gap: 6px;
+}
+
+.header-toolbar-aligned button[mat-raised-button] {
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 24px;
+  margin: 0;
+  min-width: 140px;
+  background: #f2f2f2 !important;
+  color: #232323 !important;
+  border: none;
+  box-shadow: none;
+}
+.header-toolbar-aligned button[mat-raised-button]:hover {
+  background: #e0e0e0 !important;
+}
+
+.header-toolbar-aligned .mat-form-field {
+  width: 100%;
+  margin: 0;
+}
+
+/* Panel shadow estilo Material */
+.shadow-panel {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.16), 0 1.5px 4px rgba(0,0,0,0.07);
+  border: 1px solid #e8e8e8;
+  padding: 28px 14px 8px 14px;
+  margin: 32px;
+  max-width: 98vw;
+}
+
+/* Tabla */
+.full-width-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.full-width-table th, .full-width-table td {
+  text-align: left;
+  padding: 8px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 400;
+}
+
+/* Acciones columna */
+.acciones-col {
+  width: 80px !important;
+  text-align: center;
+}
+
+tr.mat-row td, th.mat-header-cell {
+  border-bottom: 1px solid #eee;
+}
+
+@media (max-width: 1200px) {
+  .header-toolbar-aligned,
+  .shadow-panel {
+    margin-left: 4px;
+    margin-right: 4px;
+    width: auto !important;
+  }
+  .acciones-col {
+    width: 40px !important;
+  }
+}
+
+

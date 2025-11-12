@@ -1,0 +1,150 @@
+<h2 class="form-title">{{ operacion }} Persona</h2>
+
+<form [formGroup]="form" (ngSubmit)="addEditPersona()" autocomplete="off">
+  <mat-dialog-content>
+    <div class="row">
+      <div class="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Documento DNI *</mat-label>
+          <input 
+            matInput 
+            formControlName="dni" 
+            maxlength="8"
+            (blur)="onDniBlur()"
+            autocomplete="off"
+          />
+          <mat-spinner matSuffix *ngIf="verificandoDocumento" diameter="20"></mat-spinner>
+          <div class="error" *ngIf="form.get('dni')?.touched 
+                  && form.get('dni')?.hasError('required')">
+            El documento es un campo <strong>requerido</strong>
+          </div>
+          <div class="error" *ngIf="mostrarErrorDniPattern">
+            El documento debe tener solo <strong>números</strong> y exactamente 8 dígitos
+          </div>
+          <div class="error-duplicado" *ngIf="dniExiste">
+            <span>⚠️ Este documento <strong>ya está registrado</strong></span>
+          </div>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput formControlName="nombre" (blur)="validarCampo('nombre')" [readonly]="dniExiste">
+          <div class="error"
+               *ngIf="form.get('nombre')?.touched 
+                   && form.get('nombre')?.hasError('required')">
+            El nombre es un campo <strong>requerido</strong>
+          </div>
+        </mat-form-field>
+      </div>
+      <div class="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Apellido</mat-label>
+          <input matInput formControlName="apellidos" (blur)="validarCampo('apellidos')" [readonly]="dniExiste">
+          <div class="error"
+               *ngIf="form.get('apellidos')?.touched 
+                   && form.get('apellidos')?.hasError('required')">
+            El apellido es un campo <strong>requerido</strong>
+          </div>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Correo</mat-label>
+          <input matInput formControlName="email" (blur)="validarCampo('email')" [readonly]="dniExiste">
+          <div class="error"
+               *ngIf="form.get('email')?.touched 
+                   && form.get('email')?.hasError('required')">
+            El correo es un campo <strong>requerido</strong>
+          </div>
+          <div class="error"
+               *ngIf="form.get('email')?.touched 
+                   && form.get('email')?.hasError('email')">
+            Debe ser un correo electrónico válido
+          </div>
+        </mat-form-field>
+      </div>
+      <div class="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Teléfono</mat-label>
+          <input 
+            matInput 
+            formControlName="telefono" 
+            maxlength="9" 
+            (blur)="validarCampo('telefono')" 
+            [readonly]="dniExiste"
+            type="tel"
+          />
+          <div class="error"
+               *ngIf="form.get('telefono')?.touched 
+                   && form.get('telefono')?.hasError('required')">
+            El teléfono es un campo <strong>requerido</strong>
+          </div>
+          <div class="error"
+               *ngIf="form.get('telefono')?.touched 
+                    && form.get('telefono')?.hasError('pattern')">
+            Debe ser un número válido de 9 dígitos
+          </div>
+          <div class="error"
+               *ngIf="form.get('telefono')?.touched 
+                    && form.get('telefono')?.hasError('maxlength')">
+            El teléfono no puede tener más de 9 dígitos
+          </div>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="column">
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha Nacimiento</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fechaNacimiento" (blur)="validarCampo('fechaNacimiento')" [readonly]="dniExiste">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <div class="error"
+               *ngIf="form.get('fechaNacimiento')?.touched 
+                   && form.get('fechaNacimiento')?.hasError('required')">
+            La fecha es un campo <strong>requerido</strong>
+          </div>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-button type="button" (click)="cancelar()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!puedeEnviar()">Aceptar</button>
+  </mat-dialog-actions>
+</form>
+
+<style>
+.form-title {
+  text-align: center;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+.row {
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+.column {
+  flex: 1;
+}
+.error {
+  color: #d32f2f;
+  font-size: 0.9em;
+  margin-top: 2px;
+}
+.error-duplicado {
+  color: #d32f2f;
+  font-weight: bold;
+  margin-top: 2px;
+}
+</style>

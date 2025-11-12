@@ -1,0 +1,31 @@
+mat-form-field {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+}
+
+.column {
+    flex: 50%;
+    margin: 0px 5px;
+}
+
+.error {
+    color: #B0304B;
+    margin-top: -10px;
+    min-height: 20px;
+    font-size: 12px;
+}
+
+.container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/* Spinner en el campo de documento */
+mat-form-field mat-spinner {
+    margin-right: 8px;
+}
